@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusFX — Support Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOGIN PAGE
+═══════════════════════════════════════════════════════════ -->
+<div id="login-page" class="auth-page">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="auth-logo-mark">N</div>
+      <div>
+        <div class="auth-logo-text">Nexus<span>FX</span></div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-subtitle">Sign in to your support desk account</div>
+
+      <div class="demo-badge">
+        Demo: admin@nexusfx.com &nbsp;/&nbsp; admin123
+      </div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input type="email" id="login-email" class="form-input"
+                 placeholder="you@nexusfx.com" autocomplete="email">
+          <div class="form-error" id="login-email-err"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input"
+                 placeholder="••••••••" autocomplete="current-password">
+          <div class="form-error" id="login-pass-err"></div>
+        </div>
+
+        <a href="#" class="forgot-link" onclick="return false">Forgot password?</a>
+
+        <button type="submit" class="btn-primary">Sign In</button>
+      </form>
+
+      <div class="auth-switch">
+        Don't have an account?
+        <a href="#" onclick="showPage('signup');return false">Create account</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIGNUP PAGE
+═══════════════════════════════════════════════════════════ -->
+<div id="signup-page" class="auth-page" style="display:none">
+  <div class="auth-container" style="max-width:460px">
+    <div class="auth-logo">
+      <div class="auth-logo-mark">N</div>
+      <div>
+        <div class="auth-logo-text">Nexus<span>FX</span></div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-title">Create account</div>
+      <div class="auth-subtitle">Join the NexusFX support team platform</div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="signup-name" class="form-input" placeholder="Sarah Mitchell">
+          <div class="form-error" id="signup-name-err"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="you@nexusfx.com">
+          <div class="form-error" id="signup-email-err"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="signup-pass" class="form-input" placeholder="Min 8 chars">
+            <div class="form-error" id="signup-pass-err"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" id="signup-confirm" class="form-input" placeholder="Repeat password">
+            <div class="form-error" id="signup-confirm-err"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <div class="auth-switch">
+        Already have an account?
+        <a href="#" onclick="showPage('login');return false">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DASHBOARD PAGE (injected via dashboard.html content below)
+═══════════════════════════════════════════════════════════ -->
+<div id="dashboard-page" style="display:none">
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- ─── SIDEBAR ─────────────────────────────────────── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark">N</div>
+        <div>
+          <div class="sidebar-logo-text">NexusFX</div>
+          <div class="sidebar-logo-sub">Support Desk</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+
+      <div class="nav-item active" data-page="dashboard">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Dashboard
+      </div>
+
+      <div class="nav-item" data-page="chat">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
+        </svg>
+        Live Chat
+        <span class="nav-badge cyan">4</span>
+      </div>
+
+      <div class="nav-item" data-page="tickets">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Tickets
+        <span class="nav-badge">28</span>
+      </div>
+
+      <div class="nav-item" data-page="clients">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 010 7.75"></path>
+        </svg>
+        Clients
+      </div>
+
+      <div class="nav-section-label">Insights</div>
+
+      <div class="nav-item" data-page="analytics">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        Analytics
+      </div>
+
+      <div class="nav-section-label">Account</div>
+
+      <div class="nav-item" data-page="settings">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.07 4.93l-1.41 1.41M12 2v2M4.93 4.93l1.41 1.41M2 12h2m-.07 7.07l1.41-1.41M12 22v-2m7.07.07l-1.41-1.41M22 12h-2"></path>
+        </svg>
+        Settings
+      </div>
+
+      <div class="nav-item" data-page="logout" style="margin-top:auto;color:var(--red)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        Logout
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">SM</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">Sarah Mitchell</div>
+          <div class="sidebar-user-role">Sr. Support Agent</div>
+        </div>
+        <div class="online-dot"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── MAIN CONTENT ────────────────────────────────── -->
+  <div class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="page-title" id="page-title">Dashboard</div>
+      </div>
+
+      <div class="topbar-search">
+        <svg class="topbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Search tickets, clients…">
+      </div>
+
+      <div class="topbar-right">
+        <button class="topbar-btn" title="Notifications" onclick="toast('3 new notifications','info','🔔')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 01-3.46 0"></path>
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+
+        <button class="topbar-btn" title="Theme" onclick="toggleTheme()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <div class="topbar-profile" onclick="navigateTo('settings')">
+          <div class="topbar-avatar">SM</div>
+          <div>
+            <div class="topbar-username">Sarah M.</div>
+            <div class="topbar-status">
+              <span class="online-dot"></span> Online
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: DASHBOARD
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content active" id="page-dashboard">
+
+      <!-- Forex Ticker -->
+      <div class="market-ticker" id="forex-ticker"></div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card cyan">
+          <div class="stat-icon cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          </div>
+          <div class="stat-value counter" id="stat-open" data-target="142">0</div>
+          <div class="stat-label">Open Tickets</div>
+          <span class="stat-change up">▲ 12% this week</span>
+        </div>
+
+        <div class="stat-card green">
+          <div class="stat-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="stat-value counter" id="stat-closed" data-target="3890">0</div>
+          <div class="stat-label">Tickets Resolved</div>
+          <span class="stat-change up">▲ 8% this month</span>
+        </div>
+
+        <div class="stat-card amber">
+          <div class="stat-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          </div>
+          <div class="stat-value counter" id="stat-clients" data-target="2847">0</div>
+          <div class="stat-label">Active Clients</div>
+          <span class="stat-change up">▲ 3.2% growth</span>
+        </div>
+
+        <div class="stat-card red">
+          <div class="stat-icon red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="stat-value counter" id="stat-pending" data-target="28">0</div>
+          <div class="stat-label">Pending Requests</div>
+          <span class="stat-change down">▼ Needs attention</span>
+        </div>
+      </div>
+
+      <!-- Middle Row -->
+      <div class="dashboard-grid">
+        <!-- Activity Feed -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Recent Activity</span>
+            <span style="font-size:11px;color:var(--cyan);cursor:pointer" onclick="toast('Viewing all activity…','info','📋')">View all →</span>
+          </div>
+          <div class="activity-feed" id="activity-feed"></div>
+        </div>
+
+        <!-- Quick Stats Panel -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Today's Volume</span>
+              <span class="badge badge-active pulse">LIVE</span>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.04em;background:linear-gradient(135deg,var(--cyan),var(--blue-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$128.4M</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px">+14.2% vs yesterday</div>
+            <div class="mini-bars" id="mini-bars"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Response Time</span>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.04em;color:var(--green)">3.8<span style="font-size:16px;font-weight:400;color:var(--text-secondary)"> min avg</span></div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px">SLA target: &lt;5 min ✓</div>
+            <div class="progress-bar" style="margin-top:12px">
+              <div class="progress-fill" style="width:76%;background:linear-gradient(90deg,var(--green),var(--cyan))"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Team Online</span>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.04em;color:var(--cyan)">8<span style="font-size:16px;font-weight:400;color:var(--text-secondary)"> / 12 agents</span></div>
+            <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
+              ${['SM','JD','AK','PL','RW','BM','TN','CE','--','--','--','--'].map((a,i)=>`
+                <div style="width:28px;height:28px;border-radius:50%;background:${i<8?'linear-gradient(135deg,var(--cyan-dim),var(--blue-bright))':'var(--bg-elevated)'};display:grid;place-items:center;font-size:9px;font-weight:700;color:${i<8?'#000':'var(--text-muted)'};border:1px solid ${i<8?'transparent':'var(--border)'}">${a}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="dashboard-grid-3">
+        <div class="card" style="grid-column:1/-1">
+          <div class="card-header">
+            <span class="card-title">Recent Tickets</span>
+            <button class="btn-sm" onclick="navigateTo('tickets')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+              View All
+            </button>
+          </div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ticket ID</th><th>Client</th><th>Status</th><th>Priority</th><th>Date</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="mono">TK-8841</span></td><td>🇮🇹 Marco Rossi</td><td><span class="badge badge-urgent">Urgent</span></td><td><span class="badge badge-high">High</span></td><td style="color:var(--text-secondary);font-size:12px">2025-05-24</td><td><button class="table-action" onclick="openTicketModal('TK-8841')">View</button></td></tr>
+                <tr><td><span class="mono">TK-8840</span></td><td>🇬🇭 Amara Osei</td><td><span class="badge badge-open">Open</span></td><td><span class="badge badge-medium">Medium</span></td><td style="color:var(--text-secondary);font-size:12px">2025-05-24</td><td><button class="table-action" onclick="openTicketModal('TK-8840')">View</button></td></tr>
+                <tr><td><span class="mono">TK-8839</span></td><td>🇪🇸 Elena Vasquez</td><td><span class="badge badge-pending">Pending</span></td><td><span class="badge badge-medium">Medium</span></td><td style="color:var(--text-secondary);font-size:12px">2025-05-23</td><td><button class="table-action" onclick="openTicketModal('TK-8839')">View</button></td></tr>
+                <tr><td><span class="mono">TK-8837</span></td><td>🇯🇵 Yuki Tanaka</td><td><span class="badge badge-closed">Closed</span></td><td><span class="badge badge-low">Low</span></td><td style="color:var(--text-secondary);font-size:12px">2025-05-23</td><td><button class="table-action" onclick="openTicketModal('TK-8837')">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: LIVE CHAT
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content" id="page-chat">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Live Chat</div>
+          <div class="section-subtitle">Real-time client support conversations</div>
+        </div>
+        <span class="badge badge-active pulse">4 Active Chats</span>
+      </div>
+
+      <div class="chat-layout">
+        <!-- Chat Sidebar -->
+        <div class="chat-sidebar" id="chat-sidebar">
+          <div class="chat-sidebar-header">
+            <div style="font-weight:600;font-size:14px">Conversations</div>
+            <div class="chat-search">
+              <svg class="chat-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" placeholder="Search clients…">
+            </div>
+          </div>
+          <div class="chat-list" id="chat-list"></div>
+        </div>
+
+        <!-- Chat Window -->
+        <div class="chat-window" id="chat-window">
+          <div class="chat-window-header">
+            <div class="chat-avatar" id="chat-window-avatar" style="width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0"></div>
+            <div class="chat-window-info">
+              <div class="chat-window-name" id="chat-window-name">Select a conversation</div>
+              <div class="chat-window-status" id="chat-window-status"></div>
+            </div>
+            <div class="chat-actions">
+              <button class="icon-btn" title="Ticket" onclick="toast('Creating ticket from chat…','info','🎫')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path></svg>
+              </button>
+              <button class="icon-btn" title="Client profile" onclick="toast('Opening client profile…','info','👤')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </button>
+              <button class="icon-btn" title="End chat" onclick="toast('Chat session ended.','info','✓')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chat-messages"></div>
+
+          <div class="chat-input-area">
+            <textarea class="chat-input" id="chat-input" rows="1" placeholder="Type a reply… (Enter to send)"></textarea>
+            <button class="send-btn" id="send-btn" title="Send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: TICKETS
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content" id="page-tickets">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Ticket System</div>
+          <div class="section-subtitle">Manage and track all support requests</div>
+        </div>
+        <button class="btn-sm btn-cyan" onclick="toast('New ticket form — UI only demo.','info','🎫')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          New Ticket
+        </button>
+      </div>
+
+      <div class="filters-row">
+        <button class="filter-btn active" data-filter="all">All Tickets</button>
+        <button class="filter-btn" data-filter="open">Open</button>
+        <button class="filter-btn" data-filter="urgent">Urgent</button>
+        <button class="filter-btn" data-filter="pending">Pending</button>
+        <button class="filter-btn" data-filter="closed">Closed</button>
+        <button class="filter-btn" data-filter="high">High Priority</button>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Client</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tickets-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: CLIENTS
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content" id="page-clients">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Client Manager</div>
+          <div class="section-subtitle">Overview of all registered trading accounts</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-sm" onclick="toast('Export initiated — CSV download starting.','success','📊')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export
+          </button>
+          <button class="btn-sm btn-cyan" onclick="toast('New client registration — UI demo.','info','➕')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Add Client
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick summary bar -->
+      <div style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 20px;display:flex;gap:8px;align-items:center">
+          <span class="badge badge-active">Active</span>
+          <span style="font-weight:700;font-size:16px">10</span>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 20px;display:flex;gap:8px;align-items:center">
+          <span class="badge badge-inactive">Inactive</span>
+          <span style="font-weight:700;font-size:16px">2</span>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 20px;display:flex;gap:8px;align-items:center">
+          <span style="color:var(--purple);font-weight:700">●</span>
+          <span style="font-size:12px;color:var(--text-secondary)">Platinum</span>
+          <span style="font-weight:700;font-size:16px">3</span>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 20px;display:flex;gap:8px;align-items:center">
+          <span style="font-size:12px;color:var(--text-secondary)">Total Balance</span>
+          <span style="font-weight:700;font-size:16px;color:var(--green);font-family:'JetBrains Mono',monospace">$731,470</span>
+        </div>
+      </div>
+
+      <div class="clients-grid" id="clients-grid"></div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: ANALYTICS
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content" id="page-analytics">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Analytics</div>
+          <div class="section-subtitle">Performance metrics and insights</div>
+        </div>
+        <button class="btn-sm" onclick="toast('Generating PDF report…','success','📄')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Export Report
+        </button>
+      </div>
+
+      <!-- KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-value">94%</div>
+          <div class="kpi-label">Client Satisfaction Score</div>
+          <div class="progress-bar" style="margin-top:12px">
+            <div class="progress-fill" style="width:94%;background:linear-gradient(90deg,var(--green),var(--cyan))"></div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">3.8m</div>
+          <div class="kpi-label">Avg First Response Time</div>
+          <div class="progress-bar" style="margin-top:12px">
+            <div class="progress-fill" style="width:76%;background:linear-gradient(90deg,var(--cyan),var(--blue-bright))"></div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">389</div>
+          <div class="kpi-label">Tickets Resolved This Month</div>
+          <div class="progress-bar" style="margin-top:12px">
+            <div class="progress-fill" style="width:82%;background:linear-gradient(90deg,var(--amber),var(--green))"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="analytics-grid">
+        <div class="card">
+          <div class="chart-container">
+            <canvas id="chart-tickets" height="220"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="chart-container">
+            <canvas id="chart-response" height="220"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="chart-container">
+            <canvas id="chart-clients" height="220"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="chart-container">
+            <canvas id="chart-volume" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         PAGE: SETTINGS
+    ════════════════════════════════════════════════════ -->
+    <div class="page-content" id="page-settings">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Settings</div>
+          <div class="section-subtitle">Manage your account and preferences</div>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+        <!-- Settings Nav -->
+        <div class="settings-nav">
+          <div class="settings-nav-item active" data-tab="profile" onclick="switchSettingsTab('profile')">Profile</div>
+          <div class="settings-nav-item" data-tab="notifications" onclick="switchSettingsTab('notifications')">Notifications</div>
+          <div class="settings-nav-item" data-tab="appearance" onclick="switchSettingsTab('appearance')">Appearance</div>
+          <div class="settings-nav-item" data-tab="security" onclick="switchSettingsTab('security')">Security</div>
+        </div>
+
+        <!-- Settings Panels -->
+        <div>
+
+          <!-- PROFILE -->
+          <div class="settings-section active" id="settings-profile">
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <div class="settings-card-title">Profile Information</div>
+                <div class="settings-card-subtitle">Update your personal details and avatar</div>
+              </div>
+              <div class="settings-card-body">
+                <div class="avatar-upload">
+                  <div class="avatar-large">SM</div>
+                  <div>
+                    <button class="btn-sm btn-cyan" onclick="toast('File picker opened — UI demo.','info','📷')">Upload Photo</button>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:6px">JPG, PNG up to 2MB</div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="settings-username" value="Sarah Mitchell">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <input type="text" class="form-input" id="settings-role" value="Senior Support Agent">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-input" id="settings-email" value="admin@nexusfx.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Department</label>
+                  <select class="form-input">
+                    <option>Client Support</option>
+                    <option>Compliance</option>
+                    <option>Technical Support</option>
+                    <option>Account Management</option>
+                  </select>
+                </div>
+                <button class="btn-sm btn-cyan" onclick="saveSettings()">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOTIFICATIONS -->
+          <div class="settings-section" id="settings-notifications">
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <div class="settings-card-title">Notification Preferences</div>
+                <div class="settings-card-subtitle">Control how and when you receive alerts</div>
+              </div>
+              <div class="settings-card-body">
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Urgent Ticket Alerts</div>
+                    <div class="settings-row-desc">Get notified immediately for high-priority tickets</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">New Client Registration</div>
+                    <div class="settings-row-desc">Notify when a new client completes KYC</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Live Chat Messages</div>
+                    <div class="settings-row-desc">Sound and desktop alerts for incoming chats</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Daily Summary Report</div>
+                    <div class="settings-row-desc">Receive end-of-day performance digest via email</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox"><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">SLA Breach Warnings</div>
+                    <div class="settings-row-desc">Alert when a ticket is approaching SLA deadline</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- APPEARANCE -->
+          <div class="settings-section" id="settings-appearance">
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <div class="settings-card-title">Appearance & Theme</div>
+                <div class="settings-card-subtitle">Customize the look and feel of your dashboard</div>
+              </div>
+              <div class="settings-card-body">
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label" id="theme-label">Dark Mode</div>
+                    <div class="settings-row-desc">Toggle between dark and light interface theme</div>
+                  </div>
+                  <label class="toggle">
+                    <input type="checkbox" checked onchange="toggleTheme()">
+                    <div class="toggle-track"></div>
+                  </label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Compact Sidebar</div>
+                    <div class="settings-row-desc">Show icons only for more screen space</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox"><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Live Ticker</div>
+                    <div class="settings-row-desc">Show real-time forex prices on the dashboard</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Animations</div>
+                    <div class="settings-row-desc">Enable smooth page transitions and micro-interactions</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECURITY -->
+          <div class="settings-section" id="settings-security">
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <div class="settings-card-title">Security Settings</div>
+                <div class="settings-card-subtitle">Keep your account safe</div>
+              </div>
+              <div class="settings-card-body">
+                <div class="form-group">
+                  <label class="form-label">Current Password</label>
+                  <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-input" placeholder="Min 8 chars">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-input" placeholder="Repeat password">
+                  </div>
+                </div>
+                <button class="btn-sm btn-cyan" onclick="toast('Password updated successfully!','success','🔒')" style="margin-bottom:24px">Update Password</button>
+
+                <div class="modal-divider"></div>
+
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Two-Factor Authentication</div>
+                    <div class="settings-row-desc">Require TOTP code on login for extra security</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox"><div class="toggle-track"></div></label>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="settings-row-label">Session Timeout</div>
+                    <div class="settings-row-desc">Auto-logout after 30 minutes of inactivity</div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /dashboard-page -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     TICKET DETAIL MODAL
+═══════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="ticket-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Ticket Details</div>
+      <button class="modal-close" id="modal-close-btn" onclick="closeTicketModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="modal-field">
+          <div class="modal-field-label">Ticket ID</div>
+          <div class="modal-field-value mono" id="modal-ticket-id"></div>
+        </div>
+        <div class="modal-field">
+          <div class="modal-field-label">Date</div>
+          <div class="modal-field-value" id="modal-ticket-date"></div>
+        </div>
+        <div class="modal-field" style="grid-column:1/-1">
+          <div class="modal-field-label">Client</div>
+          <div class="modal-field-value" id="modal-ticket-client"></div>
+        </div>
+        <div class="modal-field">
+          <div class="modal-field-label">Status</div>
+          <div class="modal-field-value" id="modal-ticket-status"></div>
+        </div>
+        <div class="modal-field">
+          <div class="modal-field-label">Priority</div>
+          <div class="modal-field-value" id="modal-ticket-priority"></div>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-field">
+        <div class="modal-field-label">Issue Description</div>
+        <div class="modal-field-value" id="modal-ticket-issue" style="margin-top:6px;font-size:15px;font-weight:500"></div>
+      </div>
+      <div class="modal-field" style="margin-top:16px">
+        <div class="modal-field-label">Agent Notes</div>
+        <div class="modal-notes" id="modal-ticket-notes"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm" onclick="closeTicketModal()">Close</button>
+      <button class="btn-sm btn-cyan" onclick="toast('Ticket assigned to you.','success','✓');closeTicketModal()">Assign to Me</button>
+      <button class="btn-sm" style="color:var(--green);border-color:var(--green-ghost);background:var(--green-ghost)" onclick="toast('Ticket resolved!','success','✓');closeTicketModal()">Resolve</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+  // Configure Chart.js defaults for dark theme
+  if (typeof Chart !== 'undefined') {
+    Chart.defaults.color = 'rgba(255,255,255,0.5)';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    Chart.defaults.font.family = 'DM Sans';
+  }
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>
