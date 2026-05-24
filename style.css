@@ -1976,3 +1976,70 @@ ul { list-style: none; }
 @keyframes toastOut {
   to { opacity: 0; transform: translateX(20px); }
 }
+
+/* =========================
+   LIGHT THEME
+========================= */
+
+body.light-theme {
+  --bg: #f5f7fb;
+  --bg-card: #ffffff;
+  --bg-elevated: #e9eef5;
+
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+
+  --border: rgba(0,0,0,0.08);
+}
+
+/* Background */
+body.light-theme {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* Cards / Panels */
+body.light-theme .card,
+body.light-theme .stat-card,
+body.light-theme .sidebar,
+body.light-theme .topbar,
+body.light-theme .client-card,
+body.light-theme .chat-list-item,
+body.light-theme .msg-bubble,
+body.light-theme .table-wrapper,
+body.light-theme .modal-content {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+/* Inputs */
+body.light-theme input,
+body.light-theme textarea {
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Sidebar nav */
+body.light-theme .nav-item {
+  color: var(--text-secondary);
+}
+
+body.light-theme .nav-item.active {
+  background: rgba(0,0,0,0.05);
+  color: #000;
+}
+
+/* Tables */
+body.light-theme table {
+  color: #111;
+}
+
+/* Page */
+body.light-theme .page-title,
+body.light-theme .card-title,
+body.light-theme .stat-value {
+  color: #111;
+}
